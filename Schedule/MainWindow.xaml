@@ -1,0 +1,45 @@
+﻿<Window x:Class="Schedule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Schedule"
+        mc:Ignorable="d"
+        xmlns:viewmodel="clr-namespace:Schedule"
+        Title="MainWindow" Height="843.963" Width="571.053">
+
+    <Window.DataContext>
+        <viewmodel:ViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="366*"/>
+            <ColumnDefinition Width="197*"/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox x:Name="ItemsListBox" 
+            ItemsSource="{Binding Path=Data}"
+            DisplayMemberPath="Key"
+            SelectedItem="{Binding Path=SelectedKey}" Margin="10,10,176,767">
+        </ComboBox>
+
+        <DataGrid x:Name="ItemsListBox2"
+            ItemsSource="{Binding Path=SelectedValue}"
+            DisplayMemberPath="Key" Margin="209,10,28,698" Grid.ColumnSpan="2">
+
+        </DataGrid>
+
+        <ListBox ItemsSource="{Binding SelectedValue}" Margin="10,68,176,410">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Less}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</Window>
