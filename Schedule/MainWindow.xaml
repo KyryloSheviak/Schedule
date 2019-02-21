@@ -3,43 +3,45 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        Foreground="{DynamicResource MaterialDesignBody}"
+        BorderThickness="1"
+        BorderBrush="Gray"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
         xmlns:local="clr-namespace:Schedule"
         mc:Ignorable="d"
-        xmlns:viewmodel="clr-namespace:Schedule"
-        Title="MainWindow" Height="843.963" Width="571.053">
+        xmlns:viewmodel="clr-namespace:Schedule.ViewModel"
+        Title="MainWindow" Height="400" MinWidth="400" Width="400">
 
     <Window.DataContext>
-        <viewmodel:ViewModel />
+        <viewmodel:MainViewModel />
     </Window.DataContext>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="366*"/>
-            <ColumnDefinition Width="197*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Расписание экзаменов" Grid.Row="0" VerticalAlignment="Center" FontSize="24" Margin="10 0 0 0" />
 
-        <ComboBox x:Name="ItemsListBox" 
-            ItemsSource="{Binding Path=Data}"
-            DisplayMemberPath="Key"
-            SelectedItem="{Binding Path=SelectedKey}" Margin="10,10,176,767">
-        </ComboBox>
+        <!-- ОбЪеденение для перетаскивания -->
+        <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown" />
 
-        <DataGrid x:Name="ItemsListBox2"
-            ItemsSource="{Binding Path=SelectedValue}"
-            DisplayMemberPath="Key" Margin="209,10,28,698" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 0 8 0" Command="{Binding MinimizedProgram}">
+                <materialDesign:PackIcon Kind="WindowMinimize" Height="25" Width="25" Foreground="LightSlateGray" />
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 0 8 0" Command="{Binding CloseProgram, Mode=OneWay}">
+                <materialDesign:PackIcon Kind="WindowClose" Height="25" Width="25" Foreground="LightSlateGray" />
+            </Button>
+        </StackPanel>
 
-        </DataGrid>
-
-        <ListBox ItemsSource="{Binding SelectedValue}" Margin="10,68,176,410">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
-                        <TextBlock FontSize="16" Text="{Binding Path=Less}" HorizontalAlignment="Center" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
+        
     </Grid>
 </Window>
