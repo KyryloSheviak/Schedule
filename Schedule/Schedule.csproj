@@ -95,7 +95,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Exsams.cs" />
-    <Compile Include="ViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">

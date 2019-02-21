@@ -15,7 +15,7 @@
         xmlns:local="clr-namespace:Schedule"
         mc:Ignorable="d"
         xmlns:viewmodel="clr-namespace:Schedule.ViewModel"
-        Title="MainWindow" Height="400" MinWidth="400" Width="400">
+        Title="Розклад іспитів" Height="600" MinWidth="430" Width="430" MaxWidth="430">
 
     <Window.DataContext>
         <viewmodel:MainViewModel />
@@ -24,11 +24,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Расписание экзаменов" Grid.Row="0" VerticalAlignment="Center" FontSize="24" Margin="10 0 0 0" />
+
+        <TextBlock Text="Розклад іспитів" Grid.Row="0" VerticalAlignment="Center" FontSize="24" Margin="10 0 0 0" />
 
         <!-- ОбЪеденение для перетаскивания -->
         <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="Grid_MouseLeftButtonDown" />
@@ -42,6 +44,71 @@
             </Button>
         </StackPanel>
 
-        
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Тема оформлення: світла" FontSize="16" VerticalAlignment="Center" Margin="10 0 0 0" />
+            <ToggleButton Margin="10 0 0 0" />
+            <TextBlock Text="темна" FontSize="16" VerticalAlignment="Center" Margin="10 0 0 0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Вид відображення: таблиця" FontSize="16" VerticalAlignment="Center" Margin="10 0 0 0" />
+            <ToggleButton Margin="10 0 0 0" />
+            <TextBlock Text="тёмная" FontSize="16" VerticalAlignment="Center" Margin="10 0 0 0" />
+        </StackPanel>
+
+        <ComboBox Grid.Row="3" Margin="10 0 10 0" FontSize="16" materialDesign:HintAssist.Hint="Выберите группу:"
+                  ItemsSource="{Binding Path=Data, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Key"
+                  SelectedItem="{Binding Path=SelectedKey, UpdateSourceTrigger=PropertyChanged}" />
+
+        <ListBox Grid.Row="4" ItemsSource="{Binding SelectedValue}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid ShowGridLines="True" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock FontSize="16" HorizontalAlignment="Left" Text="{Binding Time, StringFormat=Час: {0}}" />
+                            <TextBlock FontSize="16" HorizontalAlignment="Left" Text="{Binding Date, StringFormat=Дата: {0}}" />
+                            <TextBlock FontSize="16" HorizontalAlignment="Left" Text="{Binding Cabinet, StringFormat=Кабінет: {0}}" />
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="1">
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Text="{Binding Subject}" TextWrapping="WrapWithOverflow" />
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Text="{Binding Type}" />
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Text="{Binding Teacher}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- 
+        <ComboBox 
+            x:Name="ItemsListBox" 
+            ItemsSource="{Binding Path=Data, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="Key"
+            SelectedItem="{Binding Path=SelectedKey, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,176,767">
+        </ComboBox>
+
+        <DataGrid x:Name="ItemsListBox2"
+            ItemsSource="{Binding Path=SelectedValue}"
+            DisplayMemberPath="Key" Margin="209,10,28,698" Grid.ColumnSpan="2">
+
+        </DataGrid>
+
+        <ListBox ItemsSource="{Binding SelectedValue}" Margin="10,68,176,410">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="16" Text="{Binding Path=Date}" HorizontalAlignment="Center" />
+                        <TextBlock FontSize="16" Text="{Binding Path=Cabinet}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        -->
     </Grid>
 </Window>
