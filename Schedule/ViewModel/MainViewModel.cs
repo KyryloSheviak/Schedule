@@ -29,17 +29,15 @@ namespace Schedule.ViewModel
         {
             await Task.Run(() => {
                 string json = "";
-                json = File.ReadAllText("data.json");
-                this.Data = JsonConvert.DeserializeObject<Dictionary<string, ObservableCollection<Exsams>>>(json);
-                //try
-                //{
-                //    json = File.ReadAllText("data.json");
-                //    this.Data = JsonConvert.DeserializeObject<Dictionary<string, ObservableCollection<Exsams>>>(json);
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message, "Ошибка!");
-                //}
+                try
+                {
+                    json = File.ReadAllText("data.json");
+                    this.Data = JsonConvert.DeserializeObject<Dictionary<string, ObservableCollection<Exsams>>>(json);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка!");
+                }
             });
         }
 
